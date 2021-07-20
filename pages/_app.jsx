@@ -1,9 +1,9 @@
 import { ThemeProvider } from 'contexts/theme'
 import { I18nProvider } from 'contexts/i18n'
 import { AuthProvider } from 'contexts/auth'
-import { GlobalStyle } from 'styles'
+import GlobalStyle from 'theme/globalStyle'
 
-export default function App ({ Component, pageProps }) {
+const App = ({ Component, pageProps }) => {
   return (
     <ThemeProvider>
       <I18nProvider>
@@ -15,3 +15,5 @@ export default function App ({ Component, pageProps }) {
     </ThemeProvider>
   )
 }
+
+export default App

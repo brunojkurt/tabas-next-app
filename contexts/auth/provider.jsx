@@ -1,44 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import AuthContext from './context'
 
-const initialState = {
-  user: null,
-  token: null,
-  loading: true
-}
-
-const AuthProvider = ({ children }) => {
-  const [state, setState] = useState(initialState)
-
-  useEffect(() => {
-    const fetchUserData = () => {
-      const user = window.localStorage.getItem('user')
-      const token = window.localStorage.getItem('token')
-      setState(() => user && token
-        ? ({
-            user: JSON.parse(user),
-            token,
-            loading: false
-          })
-        : ({
-            ...initialState,
-            loading: false
-          }))
-    }
-
-    fetchUserData()
-  }, [])
+const AuthProvider = ({ children, initialAuthState }) => {
+  const [state, setState] = useState(initialAuthState)
 
   const login = (user, token) => {
     setState(state => ({ ...state, user, token }))
-    window.localStorage.setItem('user', JSON.stringify(user))
-    window.localStorage.setItem('token', token)
+    setCookie(null, 'user', JSON.stringify(user), {
+      maxAge: 86400 * 7,
+      path: '/'
+    })
+    setCookie(null, 'token', token, {
+      maxAge: 86400 * 7,
+      path: '/'
+    })
   }
 
   const logout = () => {
-    setState({ ...initialState, loading: false })
-    window.localStorage.removeItem('user')
-    window.localStorage.removeItem('token')
+    setState({
+      user: null,
+      token: null
+    })
+    destroyCookie(null, 'user')
+    destroyCookie(null, 'token')
   }
 
   const isAuthenticated = () => {
@@ -57,6 +42,19 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
+}
+
+export async function getServerSiderProps(context) {
+  const cookies = parseCookies(context)
+
+  return {
+    props: {
+      initialAuthState: {
+        user: JSON.parse(cookies.user),
+        token: JSON.parse(cookies.token)
+      }
+    }
+  }
 }
 
 export default AuthProvider
