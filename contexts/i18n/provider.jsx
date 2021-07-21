@@ -3,7 +3,7 @@ import I18nContext from './context'
 import locales from 'locales'
 
 const I18nProvider = ({ children }) => {
-  const [currlanguage, setCurrLanguage] = useState('en')
+  const [currentlanguage, setCurrentLanguage] = useState('pt')
 
   useEffect(() => {
     const fetchCurrLanguage = () => {
@@ -16,16 +16,16 @@ const I18nProvider = ({ children }) => {
   }, [])
 
   const translation = (translation) => {
-    return locales[currlanguage] ? locales[currlanguage][translation] : locales.en[translation]
+    return locales[currentlanguage] ? locales[currentlanguage][translation] : locales.en[translation]
   }
 
   const changeLanguage = (language) => {
     localStorage.setItem('language', language)
-    setCurrLanguage(language.split('-')[0])
+    setCurrentLanguage(language.split('-')[0])
   }
 
   const contextData = {
-    currlanguage,
+    currentlanguage,
     changeLanguage,
     t: translation
   }

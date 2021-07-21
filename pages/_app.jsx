@@ -1,18 +1,18 @@
+import { AuthProvider } from 'contexts/auth'
 import { ThemeProvider } from 'contexts/theme'
 import { I18nProvider } from 'contexts/i18n'
-import { AuthProvider } from 'contexts/auth'
 import GlobalStyle from 'theme/globalStyle'
 
 const App = ({ Component, pageProps }) => {
   return (
-    <ThemeProvider>
-      <I18nProvider>
-        <AuthProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <I18nProvider>
           <GlobalStyle />
           <Component {...pageProps} />
-        </AuthProvider>
-      </I18nProvider>
-    </ThemeProvider>
+        </I18nProvider>
+      </ThemeProvider>
+    </AuthProvider>
   )
 }
 
