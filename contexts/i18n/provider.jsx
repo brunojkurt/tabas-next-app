@@ -1,27 +1,32 @@
 import { useState, useEffect } from 'react'
+import { setCookie } from 'nookies'
 import I18nContext from './context'
 import locales from 'locales'
 
-const I18nProvider = ({ children }) => {
-  const [currentlanguage, setCurrentLanguage] = useState('pt')
+const I18nProvider = ({ children, language }) => {
+  const [currentlanguage, setCurrentLanguage] = useState(language || 'pt')
 
   useEffect(() => {
-    const fetchCurrLanguage = () => {
-      const language = localStorage.getItem('language')
+    if (!language) {
       const navigatorLanguage = navigator.language.split('-')[0]
-      return language || navigatorLanguage
+      setCookie(null, 'language', language || navigatorLanguage, {
+        maxAge: 86400 * 90,
+        path: '/'
+      })
     }
 
-    fetchCurrLanguage()
-  }, [])
+  }, [language])
 
   const translation = (translation) => {
     return locales[currentlanguage] ? locales[currentlanguage][translation] : locales.en[translation]
   }
 
-  const changeLanguage = (language) => {
-    localStorage.setItem('language', language)
-    setCurrentLanguage(language.split('-')[0])
+  const changeLanguage = (lang) => {
+    setCookie(null, 'language', lang, {
+      maxAge: 86400 * 90,
+      path: '/'
+    })
+    setCurrentLanguage(lang)
   }
 
   const contextData = {

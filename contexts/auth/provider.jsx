@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { setCookie, parseCookies, destroyCookie } from 'nookies'
+import { setCookie, destroyCookie } from 'nookies'
 import AuthContext from './context'
 
 const AuthProvider = ({ children, initialAuthState }) => {
@@ -42,19 +42,6 @@ const AuthProvider = ({ children, initialAuthState }) => {
       {children}
     </AuthContext.Provider>
   )
-}
-
-export async function getServerSiderProps(context) {
-  const cookies = parseCookies(context)
-
-  return {
-    props: {
-      initialAuthState: {
-        user: JSON.parse(cookies.user),
-        token: JSON.parse(cookies.token)
-      }
-    }
-  }
 }
 
 export default AuthProvider
