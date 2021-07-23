@@ -1,10 +1,13 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Button, CircularProgress } from '@material-ui/core'
 
 export const StyledButton = styled(Button)`
   position: relative;
   justify-content: center;
   align-items: center;
+  ${({ rounded }) => !rounded && css`
+    border-radius: 0;
+  `}
 `
 
 export const Loading = styled(CircularProgress)`

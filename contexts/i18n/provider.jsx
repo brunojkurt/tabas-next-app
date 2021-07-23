@@ -1,28 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import I18nContext from './context'
 import locales from 'locales'
 
 const I18nProvider = ({ children }) => {
-  const [currentlanguage, setCurrentLanguage] = useState('pt')
-
-  useEffect(() => {
-    const fetchCurrLanguage = () => {
-      setCurrentLanguage(() => {
-        return window.location.hostname.includes('br')
-          ? 'pt'
-          : 'en'
-      })
-    }
-
-    fetchCurrLanguage()
-  }, [])
+  const { locale } = useRouter()
 
   const translation = (translation) => {
-    return locales[currentlanguage] ? locales[currentlanguage][translation] : locales.en[translation]
+    return locales[locale][translation]
   }
 
   const contextData = {
-    currentlanguage,
+    locale,
     t: translation
   }
 

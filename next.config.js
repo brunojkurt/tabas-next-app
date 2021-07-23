@@ -17,7 +17,32 @@ module.exports = (phase) => {
     API_URL_PT: 'https://b-dev.tabas.com.br/api/v1'
   }
 
+  const i18n = {
+    locales: ['en-US', 'pt-BR'],
+    defaultLocale: 'pt-BR',
+
+    domains: [
+      {
+        domain: 'tabas.com',
+        defaultLocale: 'en-US'
+      },
+      {
+        domain: 'tabas.com.br',
+        defaultLocale: 'pt-BR'
+      },
+      {
+        domain: 'tabas.local',
+        defaultLocale: 'en-US'
+      },
+      {
+        domain: 'tabas.br.local',
+        defaultLocale: 'pt-BR'
+      }
+    ]
+  }
+
   return {
-    env
+    env,
+    i18n
   }
 }

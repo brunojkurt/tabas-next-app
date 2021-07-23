@@ -1,12 +1,11 @@
-import styled from 'styled-components'
 import { DefaultLayout } from 'components/UI/layouts'
 import {
-  Typography,
   Container,
   List,
   ListItem,
   ListItemText
 } from 'components/UI/elements'
+import { PageTitle } from 'styles/pages/home'
 import { useI18n } from 'hooks/i18n'
 
 const Home = () => {
@@ -33,8 +32,12 @@ const Home = () => {
   )
 }
 
-const PageTitle = styled(Typography)`
-  margin-top: 50px;
-`
+export async function getStaticProps(context) {
+  return {
+    props: {
+
+    }
+  }
+}
 
 export default Home

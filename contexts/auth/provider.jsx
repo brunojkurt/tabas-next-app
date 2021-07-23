@@ -1,13 +1,24 @@
-import { useState } from 'react'
-import { setCookie, destroyCookie } from 'nookies'
+import { useState, useEffect } from 'react'
+import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import AuthContext from './context'
-import api from 'services/api'
 
 const AuthProvider = ({ children }) => {
   const [state, setState] = useState({})
 
+  useEffect(() => {
+    const {
+      'auth.token': token,
+      'auth.user': user
+    } = parseCookies()
+    if (token && user) {
+      setState({
+        user: JSON.parse(user),
+        token
+      })
+    }
+  }, [])
+
   const login = (user, token) => {
-    api.defaults.headers['Authorization'] = `Bearer ${token}`
     setCookie(null, 'auth.user', JSON.stringify(user), {
       maxAge: 86400 * 7,
       path: '/'
@@ -25,15 +36,11 @@ const AuthProvider = ({ children }) => {
     destroyCookie(null, 'auth.token')
   }
 
-  const isAuthenticated = () => {
-    return !!state.token
-  }
-
   const contextData = {
     ...state,
     login,
     logout,
-    isAuthenticated
+    isAuthenticated: state.user && state.token
   }
 
   return (

@@ -1,7 +1,7 @@
-import en from './en.json'
-import pt from './pt.json'
+import en from './en-US.json'
+import pt from './pt-BR.json'
 
 export default {
-  en,
-  pt
+  'en-US': en,
+  'pt-BR': pt
 }
