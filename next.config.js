@@ -18,6 +18,6 @@ module.exports = (phase) => {
   }
 
   return {
-    env,
+    env
   }
 }

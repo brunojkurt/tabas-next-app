@@ -3,7 +3,7 @@ import { Backdrop as BackdropBase, CircularProgress } from '@material-ui/core'
 const Backdrop = () => {
   return (
     <BackdropBase open>
-      <CircularProgress color='inherit' />
+      <CircularProgress color="inherit" />
     </BackdropBase>
   )
 }

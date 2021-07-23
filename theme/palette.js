@@ -4,10 +4,12 @@ const themePalette = currTheme => createTheme({
   palette: {
     type: currTheme,
     primary: {
-      main: '#020079'
+      main: '#000',
+      contrastText: '#FFF'
     },
     secondary: {
-      main: '#0078e9'
+      main: '#dbb95a',
+      contrastText: '#FFF'
     }
   }
 })
