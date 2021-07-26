@@ -1,4 +1,5 @@
 import { Container, Typography } from 'components/UI/elements'
+import withAuth from 'components/withAuth'
 
 const Admin = () => {
   return (
@@ -10,4 +11,4 @@ const Admin = () => {
   )
 }
 
-export default Admin
+export default withAuth(Admin)
