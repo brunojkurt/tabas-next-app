@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import AuthContext from './context'
+import { api } from 'services/api'
 
 const AuthProvider = ({ children }) => {
   const [state, setState] = useState({})
@@ -23,10 +24,14 @@ const AuthProvider = ({ children }) => {
       maxAge: 86400 * 7,
       path: '/'
     })
+
     setCookie(null, 'auth.token', token, {
       maxAge: 86400 * 7,
       path: '/'
     })
+
+    api.setAuthorization(token)
+
     setState({ user, token })
   }
 

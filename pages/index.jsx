@@ -32,12 +32,4 @@ const Home = () => {
   )
 }
 
-export async function getStaticProps(context) {
-  return {
-    props: {
-
-    }
-  }
-}
-
 export default Home

@@ -22,8 +22,8 @@ const Login = () => {
       id: '99999',
       name: 'Bruno Kurt'
     }
-    console.log(e)
     const token = 'ey999999999999'
+
     login(user, token)
   }
 

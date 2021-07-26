@@ -1,19 +1,27 @@
 import axios from 'axios'
 import { parseCookies } from 'nookies'
 
-export default function (context = {}) {
-  const { 'auth.token': token } = parseCookies(context)
-  const { locale } = context
+export function getAPIClient(ctx = {}) {
+  const { 'nextauth.token': token } = parseCookies(ctx)
+  const { locale } = ctx
 
-  const _axios = axios.create({
+  const api = axios.create({
     baseURL: locale === 'pt-BR'
       ? process.env.API_URL_PT
       : process.env.API_URL_EN
   })
 
-  if (token) {
-    _axios.defaults.headers['Authorization'] = `Bearer ${token}`
+  api.setAuthorization = token => {
+    api.defaults.headers['Authorization'] = `Bearer ${token}`
   }
 
-  return _axios
+  api.interceptors.request.use(config => {
+    return config
+  })
+
+  if (token) {
+    api.setAuthorization(token)
+  }
+
+  return api
 }
