@@ -5,11 +5,30 @@ import {
   ListItem,
   ListItemText
 } from 'components/UI/elements'
+import Link from 'next/link'
 import { PageTitle } from 'styles/pages/home'
 import { useI18n } from 'hooks/i18n'
 
 const Home = () => {
   const { t } = useI18n()
+
+  const properties = [
+    {
+      city: 'sao-paulo',
+      neighborhood: 'jardim-paulista',
+      id: 'J035'
+    },
+    {
+      city: 'sao-paulo',
+      neighborhood: 'itaim-bibi',
+      id: 'I040'
+    },
+    {
+      city: 'sao-paulo',
+      neighborhood: 'vila-nova-conceicao',
+      id: 'N001'
+    }
+  ]
 
   return (
     <DefaultLayout>
@@ -23,9 +42,17 @@ const Home = () => {
       </Container>
       <Container maxWidth="sm">
         <List component="nav">
-          <ListItem button>
-            <ListItemText primary={ t('pages.home.apartment') } />
-          </ListItem>
+          {properties.map(property => (
+            <ListItem key={property.id} button>
+              <ListItemText>
+                <Link
+                  href={`/apartments/${property.city}/${property.neighborhood}/${property.id}`}
+                >
+                  {`${t('pages.home.apartment')} - ${property.id}`}
+                </Link>
+              </ListItemText>
+            </ListItem>
+          ))}
         </List>
       </Container>
     </DefaultLayout>
