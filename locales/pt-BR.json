@@ -8,5 +8,9 @@
   "pages.apartments.show.bedroom_pluralized": "Quartos",
   "pages.apartments.show.bathroom": "Banheiro",
   "pages.apartments.show.bathroom_pluralized": "Banheiros",
-  "pages.apartments.show.description_title": "Descrição"
+  "pages.apartments.show.description_title": "Descrição",
+  "pages.coupon.apply": "Aplicar",
+  "pages.coupon.remove": "Remover",
+  "pages.coupon.rent": "Aluguel",
+  "pages.coupon.cleaning": "Limpeza"
 }
