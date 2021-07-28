@@ -6,7 +6,7 @@ import {
   ListItemText
 } from 'components/UI/elements'
 import Link from 'next/link'
-import { PageTitle } from 'styles/pages/home'
+import { PageTitle, PropertyLink } from 'styles/pages/home'
 import { useI18n } from 'hooks/i18n'
 
 const Home = () => {
@@ -23,11 +23,11 @@ const Home = () => {
       neighborhood: 'itaim-bibi',
       id: 'I015'
     },
-    {
-      city: 'sao-paulo',
-      neighborhood: 'moema',
-      id: 'M001'
-    }
+    // {
+    //   city: 'sao-paulo',
+    //   neighborhood: 'moema',
+    //   id: 'M001'
+    // }
   ]
 
   return (
@@ -43,15 +43,17 @@ const Home = () => {
       <Container maxWidth="sm">
         <List component="nav">
           {properties.map(property => (
-            <ListItem key={property.id} button>
-              <ListItemText>
-                <Link
-                  href={`/apartments/${property.city}/${property.neighborhood}/${property.id}`}
-                >
+            <Link
+              key={property.id}
+              href={`/apartments/${property.city}/${property.neighborhood}/${property.id}`}
+              passHref
+            >
+              <ListItem component={PropertyLink} button>
+                <ListItemText>
                   {`${t('pages.home.apartment')} - ${property.id}`}
-                </Link>
-              </ListItemText>
-            </ListItem>
+                </ListItemText>
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Container>

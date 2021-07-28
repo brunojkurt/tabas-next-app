@@ -49,7 +49,7 @@ export const PropertyDescriptionTitle = styled(Typography)`
   color: #000;
 `
 export const PropertyDescription = styled(Typography)`
-  padding: 20px 0;
+  padding: 20px 0 120px 0;
   ${({ theme }) => css`
     @media screen and (max-width: ${theme.breakpoints.values['sm']}px) {
       font-size: 1rem;

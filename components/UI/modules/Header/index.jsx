@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { AppBar, Toolbar } from 'components/UI/elements'
 import {
   HeaderToolbar,
@@ -28,12 +29,16 @@ const Header = ({ toolbarContent, elevation = 0, scrollElevation }) => {
     <>
       <AppBar elevation={elevate} >
         <HeaderToolbar variant="dense">
-          <LogoWrapper>
-            <Logo
-              src="/images/logo-header-lg.svg"
-              alt="logo"
-            />
-          </LogoWrapper>
+          <Link href="/" passHref>
+            <a>
+              <LogoWrapper>
+                <Logo
+                  src="/images/logo-header-lg.svg"
+                  alt="logo"
+                  />
+              </LogoWrapper>
+            </a>
+          </Link>
           <ToolbarContent>
             { toolbarContent }
           </ToolbarContent>

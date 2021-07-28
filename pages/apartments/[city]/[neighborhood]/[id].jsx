@@ -19,9 +19,9 @@ const Property = ({ property }) => {
   const { t } = useI18n()
 
   return (
-    <DefaultLayout>
+    <>
       {property && (
-        <>
+        <DefaultLayout>
           <BannerImage backgroundSrc={`${ImageBucketBaseUrl}${property.photos[0]}`} />
           <Container maxWidth="lg">
             <ApartmentTitle variant="h4" thickness="900">
@@ -67,9 +67,9 @@ const Property = ({ property }) => {
               {property.description}
             </PropertyDescription>
           </Container>
-        </>
+        </DefaultLayout>
       )}
-    </DefaultLayout>
+    </>
   )
 }
 
@@ -96,15 +96,21 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const { id } = context.params
   const api = getAPIClient(context)
+  const delay = (amount = 3500) => new Promise(resolve => setTimeout(resolve, amount))
+  try {
+    await delay()
+    const { data: property } = await api(`/apartments/${id}`)
 
-  const res = await api(`/apartments/${id}`)
-  const { data: property } = res
+    if (!property) {
+      return { notFound: true }
+    }
 
-  return {
-    props: {
-      property
-    },
-    revalidate: 60 * 5 // 5 min
+    return {
+      props: { property },
+      revalidate: 1000
+    }
+  } catch {
+    return { notFound: true }
   }
 }
 
