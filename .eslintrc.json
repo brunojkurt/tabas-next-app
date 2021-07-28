@@ -21,6 +21,7 @@
     ],
     "rules": {
         "react/prop-types": 0,
-        "import/no-anonymous-default-export": 0
+        "import/no-anonymous-default-export": 0,
+        "jsx-a11y/alt-text": 0
     }
 }

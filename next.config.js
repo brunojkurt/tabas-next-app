@@ -12,11 +12,6 @@ module.exports = (phase) => {
   // when `next build` or `npm run build` is used
   const isStaging = phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === '1'
 
-  const env = {
-    API_URL_EN: 'https://b-dev.tabas.com/api/v1',
-    API_URL_PT: 'https://b-dev.tabas.com.br/api/v1'
-  }
-
   const i18n = {
     locales: ['en-US', 'pt-BR'],
     defaultLocale: 'pt-BR',
@@ -41,8 +36,12 @@ module.exports = (phase) => {
     ]
   }
 
+  const images = {
+    domains: ['tabas.local', 'tabas.br.local']
+  }
+
   return {
-    env,
-    i18n
+    i18n,
+    images
   }
 }

@@ -3,5 +3,10 @@
   "pages.home.apartment": "Apartment",
   "pages.login.username_field": "Username",
   "pages.login.password_field": "Password",
-  "pages.login.login_btn": "Login"
+  "pages.login.login_btn": "Login",
+  "pages.apartments.show.bedroom": "Bedroom",
+  "pages.apartments.show.bedroom_pluralized": "Bedrooms",
+  "pages.apartments.show.bathroom": "Bathroom",
+  "pages.apartments.show.bathroom_pluralized": "Bathrooms",
+  "pages.apartments.show.description_title": "Description"
 }

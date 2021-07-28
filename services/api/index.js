@@ -1,4 +1,4 @@
-import { getAPIClient } from './axios'
+import { getAxios } from './axios'
 
-export const api = getAPIClient()
-export const getSSRAPIClient = ctx => getAPIClient(ctx)
+export const api = getAxios()
+export const getAPIClient = ctx => getAxios(ctx)

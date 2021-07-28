@@ -1,21 +1,75 @@
-import { Container, Typography, Image } from 'components/UI/elements'
-import { api } from 'services/api'
+import { Container } from 'components/UI/elements'
+import { DefaultLayout } from 'components/UI/layouts'
+import { getAPIClient } from 'services/api'
+import { useI18n } from 'hooks/i18n'
+
+import {
+  BannerImage,
+  ApartmentTitle,
+  ApartmentInfoWrapper,
+  InfoText,
+  ContentDivider,
+  PropertyDescriptionTitle,
+  PropertyDescription
+} from 'styles/pages/apartments/show'
+
+const ImageBucketBaseUrl = process.env.NEXT_PUBLIC_WEBSITE_EN_URL
 
 const Property = ({ property }) => {
+  const { t } = useI18n()
+
   return (
-    <Container maxWidth="lg">
+    <DefaultLayout>
       {property && (
         <>
-          <Image src={property.photos[0]} width="600" height="300" alt={property.title} />
-          <Typography variant="h4">
-            {property.title}
-          </Typography>
-          <Typography variant="h6">
-            {property.description}
-          </Typography>
+          <BannerImage backgroundSrc={`${ImageBucketBaseUrl}${property.photos[0]}`} />
+          <Container maxWidth="lg">
+            <ApartmentTitle variant="h4" thickness="900">
+              {property.title}
+            </ApartmentTitle>
+            <ApartmentInfoWrapper>
+              <InfoText
+                variant="overline"
+                thickness="300"
+              >
+                {`${property.bed_room} 
+                  ${property.bed_room > 1
+                    ? t('pages.apartments.show.bedroom_pluralized')
+                    : t('pages.apartments.show.bedroom')}`}
+              </InfoText>
+              <InfoText
+                variant="overline"
+                thickness="300"
+              >
+                {`${property.bath_room} 
+                  ${property.bath_room > 1
+                    ? t('pages.apartments.show.bathroom_pluralized')
+                    : t('pages.apartments.show.bathroom')}`}
+              </InfoText>
+              <InfoText
+                variant="overline"
+                thickness="300"
+              >
+                {`${property.sqm_total} M²`}
+              </InfoText>
+              <InfoText
+                variant="overline"
+                thickness="300"
+              >
+                {property.tabas_id}
+              </InfoText>
+            </ApartmentInfoWrapper>
+            <ContentDivider />
+            <PropertyDescriptionTitle variant="h6" thickness="600">
+              {t('pages.apartments.show.description_title')}
+            </PropertyDescriptionTitle>
+            <PropertyDescription variant="h6" thickness="200">
+              {property.description}
+            </PropertyDescription>
+          </Container>
         </>
       )}
-    </Container>
+    </DefaultLayout>
   )
 }
 
@@ -24,29 +78,33 @@ export const getStaticPaths = async () => {
     {
       city: 'sao-paulo',
       neighborhood: 'jardim-paulista',
-      id: 'J035'
+      id: 'J032'
     },
     {
       city: 'sao-paulo',
       neighborhood: 'itaim-bibi',
-      id: 'I040'
+      id: 'I015'
     }
   ]
 
   return {
-    paths: properties.map(p => ({ params: p })),
+    paths: properties.map(property => ({ params: property })),
     fallback: true
   }
 }
 
 export const getStaticProps = async (context) => {
   const { id } = context.params
-  const property = await api(`/api/v1/apartments/${id}`)
-  
+  const api = getAPIClient(context)
+
+  const res = await api(`/apartments/${id}`)
+  const { data: property } = res
+
   return {
     props: {
       property
-    }
+    },
+    revalidate: 60 * 5 // 5 min
   }
 }
 

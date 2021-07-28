@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { parseCookies } from 'nookies'
 
-export function getAPIClient(ctx = {}) {
+export function getAxios(ctx = {}) {
   const { 'nextauth.token': token } = parseCookies(ctx)
   const { locale } = ctx
 
