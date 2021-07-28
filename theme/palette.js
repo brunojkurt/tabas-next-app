@@ -2,7 +2,7 @@ import { createTheme } from '@material-ui/core/styles'
 
 const themePalette = currTheme => createTheme({
   palette: {
-    type: currTheme,
+    type: currTheme || 'light',
     primary: {
       main: '#000',
       contrastText: '#FFF'
