@@ -19,11 +19,13 @@ module.exports = (phase) => {
     domains: [
       {
         domain: 'tabas.local',
-        defaultLocale: 'en-US'
+        defaultLocale: 'en-US',
+        http: true
       },
       {
         domain: 'tabas.br.local',
-        defaultLocale: 'pt-BR'
+        defaultLocale: 'pt-BR',
+        http: true
       },
       {
         domain: 'tabas.com',
