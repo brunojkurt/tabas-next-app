@@ -73,7 +73,8 @@ const Property = ({ property }) => {
   )
 }
 
-export const getStaticPaths = async () => {
+export const getStaticPaths = async (context) => {
+  const { locales } = context
   const properties = [
     {
       city: 'sao-paulo',
@@ -87,8 +88,10 @@ export const getStaticPaths = async () => {
     }
   ]
 
+  const paths = locales.map(locale => properties.map(property => ({ params: property, locale }))).flat()
+
   return {
-    paths: properties.map(property => ({ params: property })),
+    paths,
     fallback: true
   }
 }

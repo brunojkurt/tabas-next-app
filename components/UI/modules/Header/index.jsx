@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { AppBar, Toolbar } from 'components/UI/elements'
+import { AppBar, Toolbar, Button } from 'components/UI/elements'
+import { useRouter } from 'next/router'
 import {
   HeaderToolbar,
   Logo,
@@ -9,6 +10,7 @@ import {
 } from './styles'
 
 const Header = ({ toolbarContent, elevation = 0, scrollElevation }) => {
+  const router = useRouter()
   const [elevate, setElevate] = useState(elevation)
 
   useEffect(() => {
@@ -41,6 +43,20 @@ const Header = ({ toolbarContent, elevation = 0, scrollElevation }) => {
           </Link>
           <ToolbarContent>
             { toolbarContent }
+            { router.locales.map(locale => (
+              <Link
+                key={locale}
+                href="/"
+                locale={locale}
+                passHref
+              >
+                <Button
+                  color="secondary"
+                >
+                  {locale}
+                </Button>
+              </Link>
+            ))}
           </ToolbarContent>
         </HeaderToolbar>
       </AppBar>

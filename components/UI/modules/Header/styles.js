@@ -15,4 +15,6 @@ export const Logo = styled.img`
 `
 export const ToolbarContent = styled.div`
   padding-left: 15px;
+  display: flex;
+  justify-content: end;
 `
