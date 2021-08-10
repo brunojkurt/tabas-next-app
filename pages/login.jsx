@@ -12,7 +12,6 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('true')
       router.replace('/admin')
     }
   }, [router, isAuthenticated])

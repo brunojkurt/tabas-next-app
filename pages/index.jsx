@@ -23,11 +23,11 @@ const Home = () => {
       neighborhood: 'itaim-bibi',
       id: 'I015'
     },
-    // {
-    //   city: 'sao-paulo',
-    //   neighborhood: 'moema',
-    //   id: 'M001'
-    // }
+    {
+      city: 'sao-paulo',
+      neighborhood: 'moema',
+      id: 'M001'
+    }
   ]
 
   return (
